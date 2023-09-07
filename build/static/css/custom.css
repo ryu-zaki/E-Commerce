@@ -1,0 +1,156 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+     /* Colors */
+     --black: #222;
+     --lightBlack: #444;
+     --white: #ffff;
+     --orange: #FF7D1A;
+     --gray: #888;
+}
+
+body .container {
+    background: url('/imgs/login_background');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50em;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+body .container > div:nth-child(1) button {
+    border: 1px solid var(--white);
+    position: relative;
+    border-radius: .5em;
+    z-index: 5;
+}
+
+body .container > div:nth-child(1) button::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--white);
+    width: 100%;
+    height: 100%;
+    border-radius: .4em;
+    transform: scaleX(.1);
+    transition: all .4s;
+    opacity: 0;
+    z-index: -1;
+}
+
+body .container > div:nth-child(1) button:hover {
+    color: var(--lightBlack);
+}
+
+body .container > div:nth-child(1) button:hover::before {
+    transform: scaleX(1);
+    opacity: 1;
+}
+
+body .container > div:nth-child(2) input {
+    outline: 1px solid #222;
+    border: 0;
+    border-radius: .4em;
+}
+
+body .container .overlay-bg {
+    height: 25em;
+    transition: all .7s;
+}
+
+body .container .overlay-bg > div {
+    height: 50em;
+}
+
+.container .form-container {
+    height: 50%;
+}
+
+body .container .overlay-bg.reverse {
+    transform: translateY(100%);
+}
+
+body .container .overlay-bg > div {
+    transition: all .7s;
+}
+
+body .container .overlay-bg.reverse > div {
+    transform: translateY(-50%);
+}
+
+/* Modal */
+body .modal-overlay {
+    background-color: rgba(0,0,0,0.5);
+    display: none;
+}
+
+body .modal-overlay.active {
+    display: flex;
+}
+
+body .modal-overlay > div {
+    animation: modal .5s forwards;
+    transform: translateY(-5em);
+    opacity: 0;
+}
+
+@keyframes modal {
+   to {
+    transform: translateY(0);
+    opacity: 1;
+   }
+}
+
+.container .errMess {
+    transform: translateY(-5em);
+    transition: all .4s;
+    opacity: 0;
+}
+
+.container .errMess.active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+
+/* Desktop  */
+@media (min-width: 1024px) {
+
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    body .container .overlay-bg {
+        height: 35em;
+    }
+
+    body .container .overlay-bg > div {
+        width: 200%;
+    }
+
+    body .container {
+        height: 35em;
+        width: 75%; 
+    }
+
+    body .container .overlay-bg.reverse {
+        transform: translateX(100%);
+    }
+    
+    body .container .overlay-bg.reverse > div {
+        transform: translateX(-50%);
+    }
+
+    body .container .overlay-bg > div {
+        height: 100%;
+    }
+}

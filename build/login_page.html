@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./static/css/main/main.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5a2d8f25c5.js" crossorigin="anonymous"></script>
+    <script src="./static/js/scripts.js" defer></script>
+    <title>Login your Account</title>
+</head>
+<body>
+    <div class="modal-overlay fixed inset-0 w-full flex flex-col z-20 items-center">
+      <div class="modal-box z-3 text-lightDark bg-white mt-6 p-6  flex flex-col items-center gap-3 xl:w-80">
+        <h2 class="flex justify-center items-center text-2xl gap-3 font-semibold">Successfully Signup<i class="text-green fa-regular fa-circle-check"></i></h2>
+        <p>You can login your account</p>
+        <button data-continueBtn class="bg-lightDark text-white py-2 w-3/5">Continue</button>
+      </div>
+    </div>
+
+    <div class="container mx-auto relative">
+        <!-- Overlay texts -->
+        <div class="absolute w-full h-full flex flex-col justify-between items-center py-20 text-white lg:flex-row lg:py-0 lg:px-10 xl:px-28">
+          <div class="flex flex-col items-center gap-4">
+            <h2 class="text-3xl lg:text-4xl">Login your Account</h2>
+            <p class="text-orange">Join in our community</p>
+            <button data-formBtn class="py-1 px-8 mt-4 xl:text-xl xl:px-10">Login</button>
+          </div>
+          <div class="flex flex-col items-center gap-4">
+            <h2 class="text-3xl lg:text-4xl">Create your Account</h2>
+            <p class="text-orange">Join in our community</p>
+            <button data-formBtn class="py-1 px-8 mt-4 xl:text-xl xl:px-10">Signup</button>
+          </div>
+        </div>
+
+        <!-- Actual Forms -->
+        <div class="bg-white overlay-bg relative z-10 overflow-hidden lg:w-1/2">
+          <div class="flex flex-col justify-between lg:flex-row lg:items-center">
+            <!-- Login Form -->
+            <div class="flex form-container flex-col items-center justify-center lg:w-1/2 ">
+               <form class="flex flex-col items-center gap-4 w-3/4 login-form xsm:w-3/6 lg:justify-center lg:w-full lg:px-12 lg:gap-6 xl:px-20">
+                  <h2 class="text-3xl md:text-4xl lg:text-5xl">Login your Account</h2>
+                  <div class="flex flex-col gap-2 w-full">
+                    <label>Username</label>
+                    <input class="p-2 bg-gray w-full" type="text" id="username" name="username" />
+                  </div>
+                  <div class="flex flex-col gap-2 w-full">
+                    <label>Password</label>
+                    <input class="p-2 bg-gray w-full" type="password" id="password" name="username" />
+                  </div>
+                  <button class="p-2 bg-orange text-white w-full rounded-xl md:text-xl lg:text-lg xl:p-3">Login</button>
+               </form>
+            </div>
+
+            <!-- Registration Form -->
+            <div class="flex form-container flex-col items-center justify-center lg:w-1/2">
+                <form class="flex flex-col items-center gap-4 w-3/4 register-form xsm:w-3/6 lg:justify-center lg:w-full lg:px-12 lg:gap-6 xl:px-20">
+                    <h2 class="text-3xl text-center lg:text-left xl:text-5xl">Create your account</h2>
+                    <div class="flex flex-col gap-2 w-full">
+                      <div class="flex justify-between">
+                        <label>Email</label>
+                        <span class="text-sm text-red errMess err-email">*Email already registered.</span>
+                      </div>
+                        <input class="p-2 bg-gray w-full" type="text" id="regEmail" name="regEmail" required/>
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                      <div class="flex justify-between">
+                        <label>Username</label>
+                        <span class="text-sm text-red errMess err-username">*Username already registered.</span>
+                      </div>
+                      <input class="p-2 bg-gray w-full" type="text" id="regUsername" name="username" required/>
+                    </div>
+                    <div class="flex flex-col gap-2 w-full">
+                      <label>Password</label>
+                      <input class="p-2 bg-gray w-full" type="text" id="regPassword" name="username" required/>
+                    </div>
+                    <button class="p-2 bg-orange text-white w-full rounded-xl xl:p-3">Signup</button>
+                 </form>
+            </div>
+          </div>
+        </div>
+
+    </div>
+</body>
+</html>
