@@ -4,6 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
+const PORT = process.env.PORT || 3000;
 
 const { Client } = require('pg');
 const client = new Client({
@@ -198,4 +199,4 @@ app.get('/*', (req, res) => {
 
 })
 
-app.listen(2500, () => console.log('Server is running on PORT 2500'));
+app.listen(PORT, () => console.log('Server is running on PORT 2500'));
