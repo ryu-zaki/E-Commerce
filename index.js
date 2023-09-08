@@ -130,7 +130,7 @@ app.post('/login', (req, res) => {
                 client.query('SELECT * FROM products WHERE username = $1', [req.body.username], (err, data) => {
                     if (err) throw err;
                     console.log("You have an account!", data.rows)
-                    if (data.rows[0].id != null) {
+                    if (data.rows.length != 0) {
                         console.log("You have a product!");
                         res.json({login: true, 
                                    userInfo: data.rows[0], 
