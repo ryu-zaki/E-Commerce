@@ -14,7 +14,7 @@ window.addEventListener('load', () => {
     
     /* Input element values */
     const regUsername = document.querySelector('#regUsername');
-    const regEmail = document.querySelector('#regEmail');
+    const regEmail = document.querySelector('#regEmail'); 
     const regPassword = document.querySelector('#regPassword');
 
     /* Modal Overlay */

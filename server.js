@@ -7,16 +7,17 @@ const { v4: uuidv4 } = require('uuid');
 
 const { Client } = require('pg');
 const client = new Client({
-    host: "dpg-cjspupe8b8as73f8vuc0-a",
-    database: "user_information_7k9g",
-    user: "kira",
-    password: "hlinzoldljjCgN3zSwYo8vJqMIAU5n6A"
+    connectionString: 'postgresql://postgres:cfNOERwAX7q7i85TdIfo@containers-us-west-79.railway.app:6130/railway',
+    host: 'containers-us-west-79.railway.app',
+    user: 'postgres',
+    port: 6130,
+    password: 'cfNOERwAX7q7i85TdIfo'
 })
 
-client.connect()
-  .then(() => {
-    console.log('Connected to PostgreSQL database');
-  });
+client.connect((err) => {
+    if (err) throw err;
+      console.log("Connected.")
+    })
 
 
 app.use(cors());
