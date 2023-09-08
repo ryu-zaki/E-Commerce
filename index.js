@@ -7,11 +7,11 @@ const { v4: uuidv4 } = require('uuid');
 
 const { Client } = require('pg');
 const client = new Client({
-    connectionString: 'postgresql://postgres:cfNOERwAX7q7i85TdIfo@containers-us-west-79.railway.app:6130/railway',
+    connectionString: 'postgresql://postgres:2zuy5TyWsONptHqxqNco@containers-us-west-79.railway.app:6130/railway',
     host: 'containers-us-west-79.railway.app',
     user: 'postgres',
     port: 6130,
-    password: 'cfNOERwAX7q7i85TdIfo'
+    password: '2zuy5TyWsONptHqxqNco'
 })
 
 client.connect((err) => {
@@ -42,7 +42,7 @@ app.post('/logout', (req, res) => {
 })
 
 function requireLogin(req, res, next) {
-    console.log(logChecker)
+    console.log(logChecker[req.session.username])
     if (!logChecker[req.session.username]) {
         res.redirect('/login');
         return;
@@ -56,6 +56,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/', requireLogin, (req, res) => {
+    console.log(logChecker[req.session.username])
         res.sendFile(path.join(__dirname, 'build', 'home.html'));
 })
 
@@ -119,18 +120,22 @@ app.post('/login', (req, res) => {
         (err, result) => {
             if (err) throw err;
             
-            console.log(result.rows);
             if (result.rows.length != 0) {
 
                 /* Generated id for every user */
                 const uniqueUserId = uuidv4();
                 
                 /* user Products Database */
-                client.query('SELECT * FROM products WHERE username = $1', [result.rows[result.rows.length - 1].username], (err, data) => {
+                client.query('SELECT * FROM products WHERE username = $1', [req.body.username], (err, data) => {
                     if (err) throw err;
-                    console.log(data.rows)
-                    if (data.rows.id != null) {
-                        res.json({login: true, userInfo: data.rows[0], username: result.rows[result.rows.length - 1].username, uniqueId: uniqueUserId});
+                    console.log("You have an account!", data.rows)
+                    if (data.rows[0].id != null) {
+                        console.log("You have a product!");
+                        res.json({login: true, 
+                                   userInfo: data.rows[0], 
+                                   username: result.rows[result.rows.length - 1].username, 
+                                   uniqueId: uniqueUserId,
+                                });
                         return;
                     }
                     
@@ -149,13 +154,8 @@ app.post('/login', (req, res) => {
         })
 })
 
-
-
-
-
 /* adding products to database */
 app.post('/add-product', (req, res) => {
-    console.log(req.body, req.session.username);
     const { productName, quantity, price, numItem, uniqueId } = req.body;
 
     client.query(
@@ -182,6 +182,7 @@ app.post('/delete-item', (req, res) => {
     'DELETE FROM products WHERE username = $1 AND id = $2', 
     [req.session.username, req.body.productID],(err) => {
         if (err) throw err;
+        console.log()
         res.json({mess: 'Product Deleted'});
     });
 })

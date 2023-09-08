@@ -99,11 +99,12 @@ window.addEventListener('load', () => {
           localStorage.setItem('username', data.username);
           localStorage.setItem('userUniqueId', data.uniqueId)
           if (data.userInfo) {
-            const { productName, quantity, price, num_item } = data.userInfo;
-            localStorage.setItem('productName', productName);
+            const { id ,product_name, quantity, price, num_item} = data.userInfo;
+            localStorage.setItem('productName', product_name);
             localStorage.setItem('quantity', quantity);
             localStorage.setItem('price', price);
             localStorage.setItem('numItem', num_item);
+            localStorage.setItem('productID', id);
           }
 
          location.assign('/loading');

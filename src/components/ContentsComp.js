@@ -151,8 +151,6 @@ class ContentsComp extends Component {
         }
     });
        })
-
-       
     }
 
     deleteHandler = () => {
@@ -224,7 +222,7 @@ class ContentsComp extends Component {
            .then(res => res.json())
            .then(data => {
             if (data.logout) {
-                window.location.assign('http://localhost:2500/login');
+                window.location.assign('/login');
             }
            })
            .catch(err => {

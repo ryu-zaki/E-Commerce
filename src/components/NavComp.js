@@ -91,8 +91,7 @@ class NavComp extends Component {
                     </div>
 
                     <div className='category'>
-                    <span>Customization</span>
-                    <a className='fifth' href="#">Darkmode</a>
+                    <span>Account</span>
                     <a className='sixth' onClick={logoutHandler}>Logout</a>
                     </div>
                   </nav>
