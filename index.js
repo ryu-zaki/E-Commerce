@@ -189,6 +189,24 @@ app.post('/delete-item', (req, res) => {
 })
 
 
+/* Checking if the user has a product or not */
+app.post('/check-item', (req, res) => {
+    client.query('SELECT * FROM products WHERE id = $1', [req.body.id], 
+      (err, result) => {
+      if (err) throw err; 
+
+        if (result.rows.length > 0) {
+            res.json({hasProduct: true})
+            return;
+        }
+
+        res.json({hasProduct: false})
+
+    })
+
+})
+
+
 app.get('/small-img', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'static', 'media', 'small-img'))
 

@@ -236,6 +236,32 @@ class ContentsComp extends Component {
     }
 
     componentDidMount() {
+
+        const productId = localStorage.getItem('productID');
+
+        if (productId) {
+            fetch('/check-item', {
+                method: 'POST',
+                headers: {
+                    'Conteent-Type': 'application/json'
+                },
+                body: JSON.stringify({id: productId})
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (!data.hasProduct) {
+                    localStorage.removeItem('productName');
+                    localStorage.removeItem('numItem');
+                    localStorage.removeItem('quantity');
+                    return
+                } 
+            })
+            .catch(err => {
+                console.log(err);
+            })
+
+        }
+
         const bgImg = document.querySelector('.img-bg');
         bgImg.classList.add('active')
         console.log('hi')
