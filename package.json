@@ -18,8 +18,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node index.js && npm install",
-    "build": "npx tailwindcss -i ./build/static/css/custom.css -o ./build/static/css/main/main.css"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serverStart": "nodemon index.js",
+    "watch": "npx tailwindcss -i ./build/static/css/custom.css -o ./build/static/css/main/main.css --watch"
   },
   "eslintConfig": {
     "extends": [

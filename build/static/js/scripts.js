@@ -18,8 +18,10 @@ window.addEventListener('load', () => {
     const regPassword = document.querySelector('#regPassword');
 
     /* Modal Overlay */
-    const continueBtn = document.querySelector('[data-continueBtn]');
-    const modalOverlay = document.querySelector('.modal-overlay');
+    const continueBtn = document.querySelectorAll('[data-continueBtn]');
+    const modalOverlay = document.querySelector('.modal-overlay.success-modal');
+    const errorModalOverlay = document.querySelector('.modal-overlay.error-modal');
+    const overlays = document.querySelectorAll('.modal-overlay');
 
     signForm.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -67,10 +69,25 @@ window.addEventListener('load', () => {
  
     })
 
-    continueBtn.addEventListener('click', () => {
+    continueBtn[0].addEventListener('click', () => {
       modalOverlay.classList.remove('active');
       formBg.classList.toggle('reverse');
     })
+
+    continueBtn[1].addEventListener('click', () => {
+      errorModalOverlay.classList.remove('active');
+      formBg.classList.toggle('reverse');
+    })
+
+    overlays.forEach(con => {
+      con.addEventListener('click' ,({target}) => {
+        if (target == con) {
+          con.classList.remove('active');
+        }
+
+      })
+    })
+
     
 
     /* login Functionality */
@@ -109,7 +126,7 @@ window.addEventListener('load', () => {
 
          location.assign('/loading');
         } else {
-          alert('Error');
+          errorModalOverlay.classList.add('active');
 
         }
       })

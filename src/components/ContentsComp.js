@@ -1,6 +1,9 @@
 import REACT, { Component } from 'react';
 import NavComp from './NavComp';
 
+/* "start": "node index.js && npm install",
+    "build": "npx tailwindcss -i ./build/static/css/custom.css -o ./build/static/css/main/main.css" */
+
 import thumb1 from '../imgs/image-product-1-thumbnail.jpg';
 import thumb2 from '../imgs/image-product-2-thumbnail.jpg';
 import thumb3 from '../imgs/image-product-3-thumbnail.jpg';
@@ -146,8 +149,6 @@ class ContentsComp extends Component {
                 } catch(err) {
                    console.log(err);
                 }
-            
-           
         }
     });
        })
@@ -234,11 +235,19 @@ class ContentsComp extends Component {
         return;
     }
 
+    componentDidMount() {
+        const bgImg = document.querySelector('.img-bg');
+        bgImg.classList.add('active')
+        console.log('hi')
+        return true;
+
+    }
+
     render() {
 
-        let num = null
-        if (this.state.numItem == 1) {
-          num = this.state.numItem;
+        let num;
+        if (this.state.numItem > 0) {
+          num = 1;
         }
 
         if (this.state.productName == '') {
@@ -259,7 +268,9 @@ class ContentsComp extends Component {
                 {/* Actual Product */}
                 <div>
                 <div className='blur-background'>
-                <img ref={this.slideRef} loading='lazy' className='actual-product' src={product1} />
+                <div className='img-bg'>
+                  <img ref={this.slideRef} loading='lazy' className='actual-product' src={product1} />
+                </div>
                 </div>
                 <button onClick={this.addSliderEffect} ><img src={nextArrow}/></button>
                 <button onClick={this.prevSliderEffect}className='prev'><img src={prevArrow}/></button>

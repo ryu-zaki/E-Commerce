@@ -56,7 +56,7 @@ class NavComp extends Component {
                   <div ref={this.cartRefs} className='cart-inside'>
                     <div>
                       <h2>Cart</h2>
-                      <img src={exitBtn} onClick={this.addToCart} />
+                      <img loading='lazy' src={exitBtn} onClick={this.addToCart} />
                     </div>  
                     <div>
                       {cartItem ? cartItem : <center><h3><i>No item</i></h3></center>}
@@ -92,7 +92,7 @@ class NavComp extends Component {
 
                     <div className='category'>
                     <span>Account</span>
-                    <a className='sixth' onClick={logoutHandler}>Logout</a>
+                    <a href="#" className='sixth' onClick={logoutHandler}>Logout</a>
                     </div>
                   </nav>
                   <div className='overlay' onClick={this.menuDeac}></div>

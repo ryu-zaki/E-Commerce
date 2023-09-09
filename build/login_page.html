@@ -9,11 +9,21 @@
     <title>Login your Account</title>
 </head>
 <body>
-    <div class="modal-overlay fixed inset-0 w-full flex flex-col z-20 items-center">
+  <!-- Successfully Login Modal -->
+    <div class="modal-overlay success-modal fixed inset-0 w-full flex flex-col z-20 items-center">
       <div class="modal-box z-3 text-lightDark bg-white mt-6 p-6  flex flex-col items-center gap-3 xl:w-80">
         <h2 class="flex justify-center items-center text-2xl gap-3 font-semibold">Successfully Signup<i class="text-green fa-regular fa-circle-check"></i></h2>
         <p>You can login your account</p>
         <button data-continueBtn class="bg-lightDark text-white py-2 w-3/5">Continue</button>
+      </div>
+    </div>
+
+    <!-- Failed to login Modal -->
+    <div class="modal-overlay error-modal fixed inset-0 w-full flex flex-col z-20 items-center">
+      <div class="modal-box z-3 text-lightDark bg-white mt-6 p-6 px-14 flex flex-col items-center gap-3 xl:w-80">
+        <h2 class="flex justify-center items-center text-2xl gap-3 font-semibold">Failed to login<i class="text-red self-center text-lg fa-solid fa-x"></i></h2>
+        <p>Please try to signup</p>
+        <button data-continueBtn class="bg-lightDark text-white mt-3 py-2 w-3/5">Continue</button>
       </div>
     </div>
 
@@ -41,11 +51,11 @@
                   <h2 class="text-3xl md:text-4xl lg:text-5xl">Login your Account</h2>
                   <div class="flex flex-col gap-2 w-full">
                     <label>Username</label>
-                    <input class="p-2 bg-gray w-full" type="text" id="username" name="username" />
+                    <input class="p-2 bg-gray w-full" type="text" id="username" name="username" required/>
                   </div>
                   <div class="flex flex-col gap-2 w-full">
                     <label>Password</label>
-                    <input class="p-2 bg-gray w-full" type="password" id="password" name="username" />
+                    <input class="p-2 bg-gray w-full" type="password" id="password" name="username" required/>
                   </div>
                   <button class="p-2 bg-orange text-white w-full rounded-xl md:text-xl lg:text-lg xl:p-3">Login</button>
                </form>
