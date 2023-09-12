@@ -17,10 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "dev": "nodemon index.js",
-    "watch": "npx tailwindcss -i ./build/static/css/custom.css -o ./build/static/css/main/main.css --watch"
+    "start": "node index.js && npm install",
+    "build": "npx tailwindcss -i ./build/static/css/custom.css -o ./build/static/css/main/main.css --watch"
   },
   "browserslist": {
     "production": [
