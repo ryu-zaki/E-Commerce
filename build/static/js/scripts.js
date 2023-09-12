@@ -25,7 +25,7 @@ window.addEventListener('load', () => {
 
     signForm.addEventListener('submit', (e) => {
       e.preventDefault();
-      console.log('CCSC')
+      
       const errEmail = document.querySelector('.err-email');
       const errUsername = document.querySelector('.err-username');
       const errMess = document.querySelectorAll('.errMess');
@@ -55,7 +55,7 @@ window.addEventListener('load', () => {
           regPassword.value = "";
         } else {
           const {username, email} = data.userInfo;
-          console.log(username, email);
+         
           if (username) {
             errUsername.classList.add('active');
           }
@@ -111,7 +111,7 @@ window.addEventListener('load', () => {
       })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
+       
         if (data.login == true) {
           localStorage.setItem('username', data.username);
           localStorage.setItem('userUniqueId', data.uniqueId)

@@ -38,9 +38,11 @@ class ContentsComp extends Component {
     addSliderEffect = () => {
         const arr = [product1, product2, product3, product4];
         
-        this.setState((prevState) => ({
-            count: prevState.count + 1
-        }), () => {
+        this.setState((prevState) => {
+            return {
+               count: prevState.count + 1
+            }
+        }, () => {
            let { count } = this.state;
            if (count >= 4) {
             this.setState({count: 3});
@@ -53,10 +55,11 @@ class ContentsComp extends Component {
     prevSliderEffect = () => {
         const arr = [product1, product2, product3, product4];
         
-        this.setState((prev) => ({
-            count: prev.count - 1
-
-        }), () => {
+        this.setState((prevState) => {
+            return {
+               count: prevState.count - 1,
+            }
+        }, () => {
             let {count} = this.state;
             if (count < 0) {
               this.setState({count: 0});
@@ -169,9 +172,7 @@ class ContentsComp extends Component {
           })
           .then(res => res.json())
           .then(data => {
-            
-            
-            console.log(data.mess)
+           
           })
           .catch(err => {
             console.log(err)
@@ -249,7 +250,8 @@ class ContentsComp extends Component {
             })
             .then(res => res.json())
             .then(data => {
-                if (!data.hasProduct) {
+               
+                if (data.hasProduct == 'false') {
                     localStorage.removeItem('productName');
                     localStorage.removeItem('numItem');
                     localStorage.removeItem('quantity');
@@ -264,10 +266,14 @@ class ContentsComp extends Component {
 
         const bgImg = document.querySelector('.img-bg');
         bgImg.classList.add('active')
-        console.log('hi')
+       
         return true;
 
     }
+
+    checkout = () => {
+        window.location.assign('/checkout-page');
+    } 
 
     render() {
 
@@ -281,12 +287,10 @@ class ContentsComp extends Component {
             localStorage.removeItem('quantity');
             localStorage.removeItem('numItem');
         }
-
         
-
         return(
         <>
-            <NavComp quantity={this.state.cartCount2} numItem={num} deleteHandler={this.deleteHandler} productName={this.state.productName} logoutHandler={this.logoutAcc}/>
+            <NavComp quantity={this.state.cartCount2} numItem={num} deleteHandler={this.deleteHandler} productName={this.state.productName} logoutHandler={this.logoutAcc} checkout={this.checkout}/>
             <div className="content-wrapper">
 
               {/* Pictures Section */}

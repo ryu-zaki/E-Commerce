@@ -31,7 +31,9 @@ module.exports = {
       'gray': '#eee',
       'blue': '#0000FF',
       'lightDark': '#222',
-      'orange': '#FF7D1A'
+      'orange': '#FF7D1A',
+      'lightGray': '#aaa',
+      'transparent': 'rgba(0,0,0,0.0)'
     },
     extend: {},
   },

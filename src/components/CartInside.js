@@ -3,8 +3,6 @@ import pro1Thumb from '../imgs/image-product-1-thumbnail.jpg';
 import deleteBtn from '../imgs/icon-delete.svg';
 
 const CartInside = (props) => {
-
-  console.log(props.quantity);
     return (
         <>
             <div>
@@ -17,7 +15,7 @@ const CartInside = (props) => {
               </div>
               <img onClick={props.deleteItem} src={deleteBtn}  width='20' height='20'/>
             </div>
-              <button>Checkout</button>
+              <button onClick={props.checkout}>Checkout</button>
         </>
     )
 }

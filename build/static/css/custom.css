@@ -11,7 +11,8 @@
      --gray: #888;
 }
 
-body .container {
+
+body .container.login-page {
     background: url('/imgs/login_background');
     background-position: center;
     background-repeat: no-repeat;
@@ -20,38 +21,170 @@ body .container {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
-body .container > div:nth-child(1) button {
-    border: 1px solid var(--white);
-    position: relative;
+body .container.login-page button[data-formBtn] {
+    border: 1px solid #fff;
     border-radius: .5em;
+    position: relative;
+    color: #fff;
     z-index: 5;
 }
 
-body .container > div:nth-child(1) button::before {
+body .container.login-page button[data-formBtn]::before {
     content: '';
     position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--white);
-    width: 100%;
-    height: 100%;
-    border-radius: .4em;
-    transform: scaleX(.1);
+    inset: 0 0 0 0;
+    background-color: #eee;
+    border-radius: .3em;
+    z-index: -1;
+    transform: scaleX(0);
     transition: all .4s;
     opacity: 0;
-    z-index: -1;
 }
 
-body .container > div:nth-child(1) button:hover {
-    color: var(--lightBlack);
+body .container.login-page button[data-formBtn]:hover {
+    color: #222;
 }
 
-body .container > div:nth-child(1) button:hover::before {
+body .container.login-page button[data-formBtn]:hover::before {
     transform: scaleX(1);
     opacity: 1;
 }
+
+body .checkout-con {
+    height: 100vh;
+   /*  background-color: #222; */
+}
+
+body .checkout-con input {
+    border: 0;
+    outline: 1px solid var(--orange); 
+    border-radius: .2em;
+}
+
+body .checkout-con button.order-btn {
+    background-color: var(--orange);
+    color: #fff;
+}
+
+body .checkout-con .payment-con .list-con {
+    border-top: dashed 2px #fff;
+}
+
+body .checkout-con .payment-con i.fa-circle-check {
+    background-color: #eee;
+}
+body .checkout-con .payment-con.receipt {
+    width: 25em;
+    transform: translateY(-3em);
+    opacity: 0;
+    animation: receipt .7s forwards;
+}
+
+@keyframes receipt {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+body .checkout-con .payment-con.receipt::before,
+body .checkout-con .payment-con.receipt::after {
+    content: '';
+    background-color: #fff;
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    position: absolute;
+    top: 11.5em;
+}
+
+body .checkout-con .payment-con.receipt::before {
+    left: -.8em;
+    
+}
+
+body .checkout-con .payment-con.receipt::after {
+    right: -.8em;
+} 
+
+body .checkout-con .payment-con .input-con > input {
+    z-index: 5;
+}
+
+body .checkout-con .payment-con .input-con > input:focus,
+body .checkout-con .payment-con .input-con > input:valid {
+    outline-width: 2px;
+    z-index: 1;
+}
+
+body .checkout-con .payment-con .input-con > input:focus ~ label,
+body .checkout-con .payment-con .input-con > input:valid ~ label {
+    top: -.9em;    
+    width: fit-content;
+    font-size: .9em;
+    color: #666;
+    z-index: 3;
+    
+}
+
+.lds-ellipsis {
+    display: none;
+    position: relative;
+    width: 80px;
+    height: fit-content;
+    margin-inline: auto;
+    transform: scale(.7);
+  }
+  .lds-ellipsis div {
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--orange);
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  }
+  .lds-ellipsis div:nth-child(1) {
+    left: 8px;
+    animation: lds-ellipsis1 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(2) {
+    left: 8px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(3) {
+    left: 32px;
+    animation: lds-ellipsis2 0.6s infinite;
+  }
+  .lds-ellipsis div:nth-child(4) {
+    left: 56px;
+    animation: lds-ellipsis3 0.6s infinite;
+  }
+  @keyframes lds-ellipsis1 {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes lds-ellipsis3 {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  @keyframes lds-ellipsis2 {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(24px, 0);
+    }
+  }
+  
 
 body .container > div:nth-child(2) input {
     outline: 1px solid #222;
@@ -139,7 +272,7 @@ body .modal-overlay > div {
         width: 200%;
     }
 
-    body .container {
+    body .container.login-page {
         height: 35em;
         width: 75%; 
     }

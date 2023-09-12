@@ -4,7 +4,7 @@ const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const { v4: uuidv4 } = require('uuid');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 const { Client } = require('pg');
 const client = new Client({
@@ -43,7 +43,7 @@ app.post('/logout', (req, res) => {
 })
 
 function requireLogin(req, res, next) {
-    console.log(logChecker[req.session.username])
+    
     if (!logChecker[req.session.username]) {
         res.redirect('/login');
         return;
@@ -57,7 +57,7 @@ app.get('/login', (req, res) => {
 })
 
 app.get('/', requireLogin, (req, res) => {
-    console.log(logChecker[req.session.username])
+    
         res.sendFile(path.join(__dirname, 'build', 'home.html'));
 })
 
@@ -108,7 +108,7 @@ app.post('/register', (req, res) => {
                 res.json({
                     added: true
                 })
-                console.log('Added.');
+                
    })
 })
 })
@@ -129,9 +129,9 @@ app.post('/login', (req, res) => {
                 /* user Products Database */
                 client.query('SELECT * FROM products WHERE username = $1', [req.body.username], (err, data) => {
                     if (err) throw err;
-                    console.log("You have an account!", data.rows)
+                    
                     if (data.rows.length != 0) {
-                        console.log("You have a product!");
+                        
                         res.json({login: true, 
                                    userInfo: data.rows[0], 
                                    username: result.rows[result.rows.length - 1].username, 
@@ -171,7 +171,7 @@ app.post('/add-product', (req, res) => {
             (err, data) => {
                 if (err) throw err;
                 res.json({mess: 'added', productID: data.rows[data.rows.length - 1].id});
-               console.log('product added.');
+               
             })
         })
 
@@ -183,7 +183,7 @@ app.post('/delete-item', (req, res) => {
     'DELETE FROM products WHERE username = $1 AND id = $2', 
     [req.session.username, req.body.productID],(err) => {
         if (err) throw err;
-        console.log()
+       
         res.json({mess: 'Product Deleted'});
     });
 })
@@ -207,6 +207,31 @@ app.post('/check-item', (req, res) => {
 })
 
 
+/* Checkout Functionality */
+app.get('/checkout-page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'checkout.html'));
+})
+
+app.post('/item-checkout', (req, res) => {
+    
+  client.query(
+    `SELECT * FROM products WHERE username = $1 AND id = $2`, 
+    [req.body.username, req.body.productID], 
+    (err, result) => {
+        if (err) throw err;
+       
+        if (result.rows.length > 0) {
+            res.json({stats: true, price: result.rows[0].price});
+            return;
+        }
+
+        res.json({stats: false});
+
+    })
+
+})
+
+
 app.get('/small-img', (req, res) => {
     res.sendFile(path.join(__dirname, 'build', 'static', 'media', 'small-img'))
 
@@ -222,4 +247,4 @@ app.get('/*', (req, res) => {
 
 })
 
-app.listen(PORT, () => console.log('Server is running on PORT 3000'));
+app.listen(PORT, () => console.log(`Server is running on PORT ${PORT}`));

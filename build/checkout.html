@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/5a2d8f25c5.js" crossorigin="anonymous"></script>
+    <link href="./static/css/main/main.css" rel="stylesheet">
+    <title>Processing of Payment</title>
+</head>
+<body class="flex justify-center">
+    <div class="container flex justify-center items-center h-screen checkout-con">
+       <div class="payment-con input-field w-full mx-7 xsm:mx-auto xsm:w-9/12 md:w-1/2 md:shadow-xl bg-white md:p-7 md:py-10">
+        <form data-placeOrder class="w-full flex flex-col gap-10 xsm:mx-auto">
+            <h2 class="font-semibold text-xl">Payment Details</h2>
+            <div class="flex flex-col gap-12 w-full">
+                <div class="flex flex-col gap-8 md:flex-row md:w-full">
+                    <div class="flex flex-col gap-3 relative h-10 input-con md:w-1/5 md:grow">
+                        <input data-userFirst class="p-2 absolute bg-transparent h-full w-full" name="firstname" required>
+                        <label class="bg-white px-1 transition-all relative left-2 top-2">First Name</label>
+                      </div>
+      
+                      <div class="flex flex-col gap-3 relative h-10 input-con md:w-1/5 md:grow">
+                        <input data-userLast class="transition-all p-2 absolute bg-transparent h-full w-full" name="lastname" required>
+                        <label class="bg-white px-1 transition-all relative left-2 top-2">Last Name</label>
+                      </div>
+                </div>
+
+                <div class="flex flex-col gap-3 relative h-10 input-con">
+                    <input class="p-2 absolute bg-transparent h-full w-full" name="address" required>
+                    <label class="bg-white px-1 transition-all relative left-2 top-2">Complete Address</label>
+                </div>
+
+                <div class="flex justify-between w-full md:justify-start md:gap-5">
+                  <h3 class="font-semibold">Payment Method</h3>
+                  <p class="text-lightGray">Cash on delivery</p>
+                </div>
+            </div>
+
+            <button type="submit" class="p-3 rounded-md order-btn md:w-1/2 flex items-center gap-2 justify-center font-semibold">Place an order<i class="fa-solid fa-greater-than"></i></button>
+            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        </form>
+       </div>
+
+       <!-- Receipt Container -->
+       <div class="payment-con bg-lightDark text-white py-11 rounded-xl receipt relative hidden">
+         <div class="w-full flex flex-col items-center gap-12">
+            <div class="flex flex-col items-center gap-5">
+                <i class="fa-solid fa-circle-check text-green text-2xl rounded-full p-2 px-3"></i>
+                <h2 class="text-2xl font-semibold">Payment Success!</h2>
+            </div>
+
+            <div class="flex justify-between w-full list-con pt-10 px-4">
+              <div>
+                <ul class="flex flex-col gap-4 font-semibold">
+                    <li>Full name</li>
+                    <li>Date</li>
+                    <li>Time</li>
+                    <li>Payment Method</li>
+                    <li>Amount</li>
+                </ul>
+              </div>
+              <div>
+                <ul class="flex flex-col gap-4 text-lightGray">
+                    <li data-fullname></li>
+                    <li data-date></li>
+                    <li data-time></li>
+                    <li>Cash on delivery</li>
+                    <li data-amount></li>
+                </ul>
+              </div>
+            </div>
+
+            <button data-homeBtn class="bg-orange text-white p-2 px-8 flex gap-2 items-center rounded-md"><i class="fa-solid fa-house"></i>Back to home</button>
+            
+         </div>
+       </div>
+    </div>
+    <script>
+      const placeBtn = document.querySelector('[data-placeOrder]');
+
+      const inputField = document.querySelector('.payment-con.input-field');
+      const receiptField = document.querySelector('.payment-con.receipt');
+
+      /* Required Informations in Receipt */
+      const fullname = document.querySelector('[data-fullname]');
+      const date = document.querySelector('[data-date]');
+      const time = document.querySelector('[data-time]');
+      const amount = document.querySelector('[data-amount]');
+      
+      const userFirst = document.querySelector('[data-userFirst]');
+      const userLast = document.querySelector('[data-userLast]');
+
+
+      placeBtn.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const months = [
+          'Jan',
+          'Feb',
+          'Mar',
+          'Apr',
+          'May',
+          'Jun',
+          'Jul',
+          'Aug',
+          'Sep',
+          'Oct',
+          'Nov',
+          'Dec',
+        ];
+
+        const data = {
+            username: localStorage.getItem('username'), 
+            productID: localStorage.getItem('productID'),
+          }
+
+        fetch('/item-checkout', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+         
+          if (data.stats) {
+            inputField.classList.add('hidden');
+            receiptField.classList.remove('hidden');
+            
+            const actDate = new Date();
+            fullname.innerText = `${userFirst.value} ${userLast.value}`;
+            date.innerText = `${months[actDate.getMonth()]} ${actDate.getDate()}, ${actDate.getFullYear()}`;
+
+            const clock = actDate.getHours() >= 12 ? "pm" : "am";
+            const hour = actDate.getHours() > 12 ? actDate.getHours() - 12 : actDate.getHours();
+            const minutes = actDate.getMinutes() < 10 ? `0${actDate.getMinutes()}` : actDate.getMinutes();
+            time.innerText = `${hour}:${minutes} ${clock}`;  
+
+            amount.innerText = data.price;
+            return;
+          }
+
+        })
+        .catch(err => {
+          console.log(err)
+        }) 
+
+
+        fetch('/delete-item', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({productID: localStorage.getItem('productID')})
+          })
+          .then(res => res.json())
+          .then(() => {
+            localStorage.removeItem('productName');
+            localStorage.removeItem('quantity');
+            localStorage.removeItem('numItem');
+          })
+          .catch(err => {
+            console.log(err)
+          })
+
+        
+
+      })
+      const homeBtn = document.querySelector('[data-homeBtn]');
+      homeBtn.addEventListener('click', () => {
+        window.location.assign('/home')
+      })
+    </script>
+</body>
+</html>

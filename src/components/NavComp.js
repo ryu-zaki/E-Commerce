@@ -28,25 +28,20 @@ class NavComp extends Component {
       this.cartRefs.current.classList.toggle('active');
     }
 
-    avatarModal = () => {
-
-    }
-
     render() {
         let element = null;
         let cartItem = null;
-        const {productName, deleteHandler,  logoutHandler ,quantity, numItem} = this.props;
+        const {productName, deleteHandler,  logoutHandler ,quantity, numItem, checkout} = this.props;
 
-        console.log(quantity, localStorage.getItem('productName'));
         if (quantity) {
           localStorage.setItem('productName', productName);
           localStorage.setItem('quantity', quantity);
           localStorage.setItem('numItem', numItem);
 
-          cartItem = <CartInside deleteItem={deleteHandler} quantity={quantity} productName={productName} />;
+          cartItem = <CartInside deleteItem={deleteHandler} quantity={quantity} productName={productName} checkout={checkout}/>;
           element = <div className='cart-counter'>{numItem}</div>;
         } else if (localStorage.getItem('productName')) {
-          cartItem = <CartInside deleteItem={deleteHandler} quantity={localStorage.getItem('quantity')} productName={localStorage.getItem('productName')} />;
+          cartItem = <CartInside deleteItem={deleteHandler} checkout={checkout} quantity={localStorage.getItem('quantity')} productName={localStorage.getItem('productName')} />;
           element = <div className='cart-counter'>{localStorage.getItem('numItem')}</div>;
         }
 
