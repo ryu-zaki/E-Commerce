@@ -186,7 +186,7 @@ class ContentsComp extends Component {
         const img = document.querySelectorAll('.thumbnails-con > img');
         img.forEach(el => {
             el.classList.remove('active');
-        })
+        });
         target.classList.add('active');
 
         let src = null;

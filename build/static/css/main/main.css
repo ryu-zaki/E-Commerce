@@ -666,6 +666,11 @@ video {
   margin-right: auto;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mt-3 {
   margin-top: 0.75rem;
 }
@@ -1326,6 +1331,11 @@ body .modal-overlay > div {
 
   .xsm\:w-9\/12 {
     width: 75%;
+  }
+
+  .xsm\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }
 
